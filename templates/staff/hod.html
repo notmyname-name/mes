@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load extras %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+      :root {
+            
+        --menu-width: 37.5em; 
+        --items: 4; 
+        --item-width: calc(var(--menu-width) / var(--items));
+      }
+      html{
+          height: 100%;
+      }
+    body{
+        width:100%;
+        background: linear-gradient(-45deg, #ff0022, #ffee00, #00f7ff, #3700ff);
+        background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+       
+    }
+    
+    .nav {
+        width: var(--menu-width);
+        display: flex;
+        justify-content: space-around;
+        
+        
+        margin:5rem auto;
+        perspective: 2000px;
+        flex-wrap: wrap;
+        
+        
+        
+    }
+    .nav a{
+        color: white;
+        font-weight: 600;
+        transform-style: preserve-3d;
+        flex-grow: 1;
+        display: flex;
+        flex-basis: var(--item-width);
+        
+        
+        justify-content: center;
+        perspective: 200px;
+        letter-spacing: 0.5px;
+        
+        font-size: 1em;
+        
+        text-decoration: none;
+        text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        border-bottom: solid white 0.2rem;
+        
+        
+        
+    }
+    .nav a:hover{
+        background-color: #fcfcfc;
+        color: rgb(77, 77, 77);
+        
+        transform: skew(-25deg);
+    }
+    
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+      
+      .link{
+        margin:35vh auto;
+        display:flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+        
+
+    }
+    .btn{
+        width: 10rem;
+        height: 10rem;
+        margin-bottom: 5rem;
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        color:rgb(54, 54, 54);
+        font-weight: 600;
+        background-color: rgba(255, 255, 255, 0.418);
+        text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+    .btn:hover{
+        background-color: #fcfcfc;
+            color: rgb(77, 77, 77);
+            animation: shake 0.5s ease 1;
+            
+    }
+    @keyframes shake {
+        0% {
+            transform: skew(-2deg);
+        }
+        25% {
+            transform: skew(2deg);
+        }
+        50% {
+            transform: skew(-2deg);
+        }
+        75% {
+            transform: skew(2deg);
+        }
+        100% {
+            transform: skew(0deg);
+        }
+    }
+  
+    </style>
+</head>
+<body>
+  <div class="link container">
+    {%for i,j in title.items %}
+    <a href="{%url 'hod' model_download=i %}" class="btn align-middle">{{j}}</a>
+          
+          {% endfor %}
+        </div>
+      
+</body>
+<script
+        
+        src="https://kit.fontawesome.com/e7a9fffb61.js"
+        crossorigin="anonymous"
+      ></script>
+      
+      
+
+
+</html>

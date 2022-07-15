@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load extras %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        :root {
+            
+            --menu-width: 37.5em; 
+            --items: 3; 
+            --item-width: calc(var(--menu-width) / var(--items));
+          }
+          html{
+              height: 100%;
+          }
+        body{
+            width:100%;
+            background: linear-gradient(-45deg, #ff9900, #ff00ea, #00f7ff, #0026ff);
+            background-size: 400% 400%;
+	        animation: gradient 30s ease infinite;
+           
+        }
+        
+        .nav {
+            width: var(--menu-width);
+            display: flex;
+            justify-content: space-around;
+            
+            
+            margin:5rem auto;
+            perspective: 2000px;
+            flex-wrap: wrap;
+            
+            
+            
+        }
+        .nav a{
+            color: white;
+            font-weight: 600;
+            transform-style: preserve-3d;
+            flex-grow: 1;
+            display: flex;
+            flex-basis: var(--item-width);
+            
+            
+            justify-content: center;
+            perspective: 200px;
+            letter-spacing: 0.5px;
+            
+            font-size: 1em;
+            
+            text-decoration: none;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            border-bottom: solid white 0.2rem;
+            
+            
+            
+        }
+        .nav a:hover{
+            background-color: #fcfcfc;
+            color: rgb(77, 77, 77);
+            
+            transform: skew(-25deg);
+        }
+        
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .message{
+            
+            position: absolute;
+            top:0;
+            margin:0% 10%;
+            width:80%;
+            
+            padding: 1%;
+            
+            background-color: rgb(255, 255, 255);
+            color: black;
+            border-radius: 2em;
+            box-shadow: 0px 0px 10rem 2rem black;
+            overflow:auto;
+          }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/IQAC/home">Home</a>
+        
+        <a href="{% url 'send_email' %}">Send MAil</a>
+        <a href="#">Logout</a>
+    </div>
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+    {% if data%}
+    <div class="message">
+        <center>
+            <table class="table">
+            
+                <thead>
+                  <tr>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Message</th>
+                    <th scope="col" class="text-center">Date</th>
+                  </tr>
+                </thead>
+                
+                {% for data in data %}
+                
+                <tbody>
+                  <tr>
+                    
+                   
+                    <td class="text-center">{{data.id}}</td>
+                    <td class="text-center">{{data.message}}</td>
+                    <td class="text-center">{{data.date}}</td>
+                    
+                  </tr>
+                </tbody>
+                {%endfor%}
+                  
+              </table>
+              <button type="button" style="background-color:#8c00ff;color:white;border:none;padding:.5rem;border-radius:50%;font-weight:600;" onClick="hide()">Ok</button></center>
+      </div>
+      {%endif%}
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    function hide() {
+      
+      $(".message").css("display","none");
+      
+    }
+  </script>
+<script
+        src="https://kit.fontawesome.com/e7a9fffb61.js"
+        crossorigin="anonymous"
+      ></script>
+</html>

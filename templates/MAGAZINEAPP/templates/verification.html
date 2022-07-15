@@ -1,0 +1,25 @@
+{% extends "MAGAZINEAPP/templates/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container login-content">
+  <div class="container-fluid svg">
+    <img src="../static/images/login2.svg" alt="" class="svg-img" />
+  </div>
+  
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    class="form-group2 form mt-5 p-5"
+    style="color: white"
+  >
+    {% csrf_token %}
+    <h1 class="mb-3">User profile</h1>
+    {{form|crispy}}
+
+    
+    <button type="submit" class="btn btn-success btn-lg mt-3">Submit</button>
+  </form>
+  <p>If user not verified, the profile will be deleted</p>
+  
+</div>
+
+{% endblock %}

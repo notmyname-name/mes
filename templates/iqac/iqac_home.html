@@ -1,0 +1,58 @@
+{% extends "./iqac_base.html" %} {% block content %}
+<style>
+    .link{
+        margin:auto;
+        display:flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        
+        
+
+    }
+    .btn{
+        width: 10rem;
+        height: 10rem;
+        margin-bottom: 5rem;
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        color:rgb(54, 54, 54);
+        font-weight: 600;
+        background-color: rgba(255, 255, 255, 0.418);
+        text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+    .btn:hover{
+        background-color: #fcfcfc;
+            color: rgb(77, 77, 77);
+            animation: shake 0.5s ease 1;
+            
+    }
+    @keyframes shake {
+        0% {
+            transform: skew(-2deg);
+        }
+        25% {
+            transform: skew(2deg);
+        }
+        50% {
+            transform: skew(-2deg);
+        }
+        75% {
+            transform: skew(2deg);
+        }
+        100% {
+            transform: skew(0deg);
+        }
+    }
+
+</style>
+        <center><h1>IQAC</h1></center>
+        <div class="link">
+            {% for i,j in title.items %}
+            <a href="{%url 'iqac_display' name=i title=j %}" class="btn align-middle">{{j}}</a>
+            {%endfor%}
+            
+        </div>
+        
+        {% endblock %}

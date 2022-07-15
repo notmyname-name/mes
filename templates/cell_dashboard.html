@@ -1,0 +1,103 @@
+
+{% load static %}<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{%static './style.css'%}" />
+    <title>Dashboard</title>
+  </head>
+  <body >
+    <div class="page-wrapper chiller-theme toggled">
+      <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+        <i class="fas fa-bars"></i>
+      </a>
+      <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+          <div class="sidebar-brand">
+            <a href="#">Cell/Clubs Department</a>
+            <div id="close-sidebar">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+          
+          <!-- sidebar-header  -->
+          
+          <!-- sidebar-search  -->
+          <div class="sidebar-menu">
+            <ul>
+              <li class="header-menu">
+                <span>General</span>
+              </li>
+              
+              {% for i,j in titles.items %}
+              <li class="sidebar">
+                <a href="{%url 'cell_display' name=i title=j %}" ><i class="fas fa-database"></i><span>{{j}}</span></a>
+                
+                
+              </li>
+              {%endfor%}
+                
+                  
+                
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      {% block content %} {% endblock %}
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/e7a9fffb61.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const sidebar_dropdowns = document.querySelectorAll(".sidebar-dropdown");
+      // const submenu = document.querySelectorAll(".sidebar-submenu");
+      const close = document.querySelector("#close-sidebar");
+      const open = document.querySelector("#show-sidebar");
+      const page_wrapper = document.querySelector(".page-wrapper");
+      sidebar_dropdowns.forEach((sidebar_dropdown) => {
+        sidebar_dropdown.addEventListener("click", () => {
+          sidebar_dropdown.classList.toggle("active");
+          sidebar_dropdown.classList.toggle("open");
+        });
+      });
+
+      close.addEventListener("click", () => {
+        page_wrapper.classList.remove("toggled");
+      });
+      open.addEventListener("click", () => {
+        page_wrapper.classList.add("toggled");
+      });
+
+      // $(".sidebar-dropdown > a").click(function () {
+      //   $(".sidebar-submenu").slideUp(200);
+      //   if ($(this).parent().hasClass("active")) {
+      //     $(".sidebar-dropdown").removeClass("active");
+      //     $(this).parent().removeClass("active");
+      //   } else {
+      //     $(".sidebar-dropdown").removeClass("active");
+      //     $(this).next(".sidebar-submenu").slideDown(200);
+      //     $(this).parent().addClass("active");
+      //   }
+      // });
+
+      // $("#close-sidebar").click(function () {
+      //   $(".page-wrapper").removeClass("toggled");
+      // });
+      // $("#show-sidebar").click(function () {
+      //   $(".page-wrapper").addClass("toggled");
+      // });
+    </script>
+  </body>
+</html>

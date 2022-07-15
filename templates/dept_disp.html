@@ -1,0 +1,262 @@
+{% extends "./dept_dashboard.html" %}{% load extras %} {% block content %}
+<style>
+  
+  .title{
+    color:rgb(39, 39, 39);
+    font-weight: 600;
+  }
+  .table-wrapper{
+    margin-top: 2%;
+    
+    overflow: auto;
+  }
+  thead{
+    background-color: rgb(255, 255, 255);
+    color: rgb(63, 63, 63);
+    text-align: center;
+  }
+  tbody{
+    background-color: rgb(63, 63, 63);
+    color: rgb(255, 255, 255);
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  } 
+  img{
+    width:5rem;
+  }
+  .btn{
+    color: white;
+    font-weight: 600;
+    background-color: rgb(39, 39, 39);
+    margin: 1rem;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    
+  }
+  
+  .btn:hover{
+    background-color: #fcfcfc;
+        color: rgb(77, 77, 77);
+  }
+  
+  form{
+    display: flex;
+            justify-content: space-around;
+  }
+</style>
+    <center><h2 class='title'>{{title}}</h2></center>
+    
+    <div class="mt-6">
+        <center><form method="GET">
+          {{search.form.as_p}}<button type="submit" class="btn search">Search</button>
+        </form></center>
+      
+        <center><a href="{%url 'dept_form' title=title form_name=name %}" class="add btn">Add</a></center>
+        <div class="table-wrapper">
+        <table class="table">
+            
+          <thead>
+            <tr>
+              {% for col in field_name%}
+              <th scope="col">{{col}}</th>
+              {% endfor %}
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          
+          {% for data in pagination %}
+          <tbody>
+            <tr>
+              
+              <th scope="row">{{data.id}}</th>
+              {%if 'subject' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.clas}}</td>
+              <td>{{data.titlesubject}}</td>
+              <td>{{data.tot_no_hrs}}</td>
+              {%endif%}
+              {%if 'workld' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.clas}}</td>
+              <td>{{data.theory_workld}}</td>
+              <td>{{data.pract_workld}}</td>
+              {%endif%}
+              {%if 'stdstrength' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.clas}}</td>
+              <td>{{data.no_of_stud}}</td>
+              <td>{{data.combination}}</td>
+              {%endif%}
+              {%if 'stdperform' in name%}
+              <td>{{data.category}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.clas}}</td>
+              <td>{{data.combination}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.phnum}}</td>
+              <td>{{data.event_title}}</td>
+              <td>{{data.event_details}}</td>
+              <td>{{data.certif}}</td>
+              {%endif%}
+              {%if 'stdprogress' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.phnum}}</td>
+              <td>{{data.joinedto}}</td>
+              <td>{{data.coursename}}</td>
+              {%endif%}
+              {%if 'stdplacement' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.email}}</td>
+              <td>{{data.phnum}}</td>
+              <td>{{data.joinedto}}</td>
+              <td>{{data.paypack}}</td>
+              <td>{{data.offer_letter}}</td>
+              {%endif%}
+              {%if 'deptEvent' in name%}
+              <td>{{data.conduct_for}}</td>
+              <td>{{data.scope}}</td>
+              <td>{{data.category}}</td>
+              <td>{{data.mode}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.event_Title}}</td>
+              <td><a href="{{data.event_bro.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_sche.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_Rpt.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_photo.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_cert.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_approval.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.event_misc.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%endif%}
+              {%if 'deptmeeting' in name%}
+              <td>{{data.category}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.agenda}}</td>
+              <td><a href="{{data.mom.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.atr.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%endif%}
+              {%if 'deptproposal' in name%}
+              <td>{{data.category}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.project_title}}</td>
+              <td>{{data.agency_name}}</td>
+              <td>{{data.amount}}</td>
+              <td><a href="{{data.circular.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.proposal.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%endif%}
+              {%if 'studprj' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.project_title}}</td>
+              <td>{{data.no_of_std}}</td>
+              <td>{{data.name_of_std}}</td>
+              <td>{{data.remarks}}</td>
+              <td><a href="{{data.synopsis.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%endif%}
+              {%if 'deptcomm' in name%}
+              <td>{{data.comm_to}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.subject_title}}</td>
+              <td>{{data.letter}}</td>
+              <td>{{data.remarks}}</td>
+              {%endif%}
+              {%if 'deptimges' in name%}
+              <td>{{data.event_det}}</td>
+              <td>{{data.date}}</td>
+              <td><a href="{{data.img.url}}"><img src="{{data.img.url}}"></a></td>
+              {%endif%}
+              {%if 'depteresource' in name%}
+              <td>{{data.year}}</td>
+              <td>{{data.clas}}</td>
+              <td>{{data.date}}</td>
+              <td><a href="{{data.pract_manual.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.e_book.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.video.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.qp.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.solvedQP.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.study_mat.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              <td><a href="{{data.others.url}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%endif%}
+              <td class="text-center">
+                <a href="{% url 'edit_dept' pk=data.id name=name title=title %}" class="link-light"
+                  ><i class="fas fa-highlighter mx-3"></i
+                ></a>
+                <a href="{% url 'delete_dept' pk=data.id name=name title=title %}" class="link-light"
+                  ><i class="fas fa-trash mx-3"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+          
+          {% endfor %}
+        </table>
+      </div>
+       
+
+       
+        <br />
+      
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if pagination.has_previous %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url 1 'page' request.GET.urlencode %}
+              "
+                >&laquo; First</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.previous_page_number 'page' request.GET.urlencode %}
+              "
+                >Previous</a
+              >
+            </li>
+      
+            {% endif %}
+      
+            <li class="page-item">
+              <a href="#" class="page-link disabled" style="cursor: default">
+                Pages {{ pagination.number }} of {{ pagination.paginator.num_pages }}
+              </a>
+            </li>
+      
+            {% if pagination.has_next %}
+      
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.next_page_number 'page' request.GET.urlencode %}
+              "
+                >Next</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.paginator.num_pages 'page' request.GET.urlencode %}
+              "
+              >
+                Last &raquo;
+              </a>
+            </li>
+      
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      
+      
+    <!-- <center><a href="/staff/{{link}}/" class="btn">Add</a></center>  use this for dedicated views -->
+    
+    
+    {% endblock %}

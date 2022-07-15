@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display -IQAC</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-text">
+          MES COLLEGE OF ARTS COMMERCE AND SCIENCE
+        </span>
+      </nav>
+      <h3> Calender of Events</h3>
+      <div class="my-7"> 
+          {% for dataset in dataset %}
+        <table class="table table-bordered">
+            <span class="border border-primary">
+            <thead>
+              <tr>
+               
+                <th scope="col">Name of the Event</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> {{dataset.Date}}</td>
+                <td>{{dataset.Name_ev}}</td>
+              </tr>
+             
+            </tbody>
+        </span>
+          </table>
+          {% endfor %}
+
+
+
+
+
+
+      </div>
+</body>
+</html>

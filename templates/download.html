@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+      
+    
+    .container{
+        display: block;
+        
+        width: 100%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+        
+        
+        
+        
+        
+    }
+    .btn,.title{
+      padding: .2rem;
+      
+      text-decoration:none;
+      
+      
+      text-align: center;
+      font-size:1rem;
+      
+      font-weight: 600;
+  }
+  
+  
+  
+  .table-wrapper{
+    
+    overflow:visible;
+  }
+  thead{
+    
+    color: rgb(0, 0, 0);
+    text-align: center;
+  }
+  tbody{
+    
+    color: rgb(0, 0, 0);
+    
+    text-align: center;
+  }
+  a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  }
+  
+    </style>
+</head>
+<body>
+  <div class="container">
+    <center><h2 class='title'>{{title}}</h2></center>
+    
+    
+        
+      
+        
+        <div class="table-wrapper">
+        <table class="table">
+            
+          <thead>
+            <tr>
+              {% for col in field_name%}
+              <th scope="col">{{col}}</th>
+              {% endfor %}
+              
+            </tr>
+          </thead>
+          
+          {% for data in pdf %}
+          {%if 'aad' in name%}
+          <tbody id="aad">
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.option}}</td>
+              <td>{{data.date}}</td>
+              <td><a href="{{data.document.url}}" >{{data.document}}</a></td>
+              
+            </tr>
+          </tbody>
+          {%endif%}
+          {%if 'misc' in name%}
+          <tbody id="misc">
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.option}}</td>
+              <td>{{data.date}}</td>
+              <td><a href="{{data.document.url}}" >{{data.document}}</a></td>
+              
+            </tr>
+          </tbody>
+          {%endif%}
+          {%if 'univ' in name%}
+          <tbody id="univ">
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.option}}</td>
+              <td>{{data.date}}</td>
+              <td><a href="{{data.document.url}}" >{{data.document}}</a></td>
+              
+            </tr>
+          </tbody>
+          {%endif%}
+          {%if 'pub' in name%}
+          <tbody id="pub">
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.option}}</td>
+              <td>{{data.dept}}</td>
+              <td>{{data.title}}</td>
+              <td>{{data.name}}</td>
+              <td>{{data.num}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.issn}}</td>
+              <td>{{data.pubname}}</td>
+              
+              <td><a href="{{data.document.url}}" >{{data.document}}</a></td>
+              
+            </tr>
+          </tbody>
+          {%endif%}
+          {%if 'port' in name%}
+          <tbody id="port">
+            <tr>
+              <th scope="row">{{data.id}}</th>
+              <td>{{data.name}}</td>
+              <td>{{data.year}}</td>
+              <td>{{data.desc}}</td>
+             
+            </tr>
+          </tbody>
+          {%endif%}
+          {% endfor %}
+        </table>
+      </div>
+       
+      <center>
+        <button
+          
+          onClick="divFunction('{{name}}')"
+        >
+          Download
+        </button>
+      </center>
+      
+        <br />
+      
+        
+      
+      
+      
+    
+  </div>
+    
+</body>
+
+
+      <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    ></script>
+      <script type="text/javascript">
+        function divFunction(abc) {
+          var blah = String(abc);
+          
+          var divContents = document.getElementById(blah).innerHTML;
+          $("button").remove();
+          var printWindow = window.open();
+          
+          var data = $("html").html();
+          
+          printWindow.document.write(data);
+          
+          printWindow.document.close();
+          
+          printWindow.print();
+        }
+      </script>
+
+
+</html>

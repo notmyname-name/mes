@@ -1,0 +1,21 @@
+{% extends "MAGAZINEAPP/templates/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container">
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    class="form-group2 mt-5 p-5"
+    style="color: white"
+  >
+    {% csrf_token %}
+    <h3 class="mb-5">Are you sure, you want to delete "{{ item }}"</h3>
+
+    <form method="POST">
+      <a href="{% url 'display' username=username%}" class="btn btn-primary btn-lg mt-3"
+        >Cancel</a
+      >
+      <button type="submit" class="btn btn-danger btn-lg mt-3">DELETE</button>
+    </form>
+  </form>
+</div>
+{% endblock %}

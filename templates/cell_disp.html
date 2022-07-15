@@ -1,0 +1,188 @@
+{% extends "./cell_dashboard.html" %}{% load extras %} {% block content %}
+<style>
+  
+  .title{
+    color:rgb(39, 39, 39);
+    font-weight: 600;
+  }
+  .table-wrapper{
+    margin-top: 2%;
+    
+    overflow: auto;
+  }
+  thead{
+    background-color: rgb(255, 255, 255);
+    color: rgb(63, 63, 63);
+    text-align: center;
+  }
+  tbody{
+    background-color: rgb(63, 63, 63);
+    color: rgb(255, 255, 255);
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  } 
+  img{
+    width:5rem;
+  }
+  .btn{
+    color: white;
+    font-weight: 600;
+    background-color: rgb(39, 39, 39);
+    margin: 1rem;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    
+  }
+  
+  .btn:hover{
+    background-color: #fcfcfc;
+        color: rgb(77, 77, 77);
+  }
+  
+  form{
+    display: flex;
+            justify-content: space-around;
+  }
+  .message{
+    position: absolute;
+    top: 40%;
+    padding: 1%;
+    display: none;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border-radius: 2em;
+    box-shadow: 0px 0px 10rem 2rem black;
+  }
+</style>
+    <center><h2 class='title'>{{title}}</h2></center>
+    
+    <div class="mt-6">
+        <center><form method="GET">
+          {{search.form.as_p}}<button type="submit" class="btn search">Search</button>
+        </form></center>
+      
+        <center><a href="{%url 'cell_form' title=title form_name=name %}" class="add btn">Add</a></center>
+        <div class="table-wrapper">
+        <table class="table">
+            
+          <thead>
+            <tr>
+              {% for col in field_name%}
+              <th scope="col">{{col}}</th>
+              {% endfor %}
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          
+          {% for data in pagination %}
+          
+          <tbody>
+            <tr>
+              
+              {%for info in data%}
+              <td>{{info}}</td>
+              {%endfor%}
+              <td class="text-center">
+                <a href="{% url 'edit_cell' pk=data.0 name=name title=title %}" class="link-light"
+                  ><i class="fas fa-highlighter mx-3"></i
+                ></a>
+                <button onclick="show('{{data.0}}')" style="background-color: rgba(255, 255, 255, 0);border:none;color:white;"><i class="fas fa-trash mx-3"></i></button>
+                
+              </td>
+            </tr>
+          </tbody>
+          <div class="message container">
+            <center>
+            <div class="item"><h3 class="mb-5">Are you sure, you want to delete id={{data.0}} ?</h3></div>
+            
+            
+            <form method="POST" action="{% url 'delete_cell' pk=data.0 name=name title=title %}">{%csrf_token%}
+              <button type="button" class="btn btn-primary" onClick="hide()">cancel</button>
+              <button type="submit" class="btn btn-danger ">DELETE</button>
+          </form></center>
+          </div>
+          {% endfor %}
+        </table>
+      </div>
+       
+
+       
+        <br />
+      
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if pagination.has_previous %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url 1 'page' request.GET.urlencode %}
+              "
+                >&laquo; First</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.previous_page_number 'page' request.GET.urlencode %}
+              "
+                >Previous</a
+              >
+            </li>
+      
+            {% endif %}
+      
+            <li class="page-item">
+              <a href="#" class="page-link disabled" style="cursor: default">
+                Pages {{ pagination.number }} of {{ pagination.paginator.num_pages }}
+              </a>
+            </li>
+      
+            {% if pagination.has_next %}
+      
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.next_page_number 'page' request.GET.urlencode %}
+              "
+                >Next</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.paginator.num_pages 'page' request.GET.urlencode %}
+              "
+              >
+                Last &raquo;
+              </a>
+            </li>
+      
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript">
+        function hide() {
+          
+          $(".message").css("display","none");
+          
+        }
+        function show() {
+          $(".message").css("display","block");
+          
+          
+          
+          
+        }
+      </script>
+    {% endblock %}

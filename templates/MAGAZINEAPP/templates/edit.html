@@ -1,0 +1,17 @@
+{% extends "MAGAZINEAPP/templates/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container">
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    class="form-group2 mt-5 p-5"
+    style="color: white"
+  >
+    {% csrf_token %}
+    <h1>This is EDIT magazine</h1>
+
+    {{form|crispy}}
+    <button type="submit" class="btn btn-success btn-lg mt-3">UPDATE</button>
+  </form>
+</div>
+{% endblock %}

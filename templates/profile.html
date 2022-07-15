@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+
+    <title>Document</title>
+    <style>
+      body {
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+      }
+      .emp-profile {
+        padding: 7% 10% 3% 10%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
+      }
+      .profile-img {
+        text-align: center;
+      }
+      .profile-img img {
+        width: 200px;
+        height: 200px;
+      }
+
+      .profile-head h5 {
+        color: #333;
+      }
+      .profile-head h6 {
+        color: #0062cc;
+      }
+      .profile-edit-btn {
+        border: none;
+        border-radius: 1.5rem;
+        width: 70%;
+        padding: 2%;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+      }
+      .proile-rating {
+        font-size: 20px;
+        color: #818182;
+        margin-top: 5%;
+      }
+      .proile-rating span {
+        color: #495057;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .profile-head .nav-tabs {
+        margin-bottom: 5%;
+        margin-left: 7%;
+      }
+      .profile-head .nav-tabs .nav-link {
+        font-weight: 600;
+        border: none;
+      }
+      .profile-head .nav-tabs .nav-link.active {
+        border: none;
+        border-bottom: 2px solid #0062cc;
+      }
+
+      .profile-tab label {
+        font-weight: 600;
+      }
+      .profile-tab p {
+        font-weight: 600;
+        color: #0062cc;
+      }
+
+      .pdf {
+        color: #ffffff;
+        margin-top: 5%;
+        background-image: linear-gradient(0deg, #3931af, #00c6ff);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.8rem 2.5rem;
+        font-weight: 600;
+        text-align: center;
+      }
+      .content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      p {
+        margin: 0;
+      }
+      .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .detail {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 1.2rem, 0;
+        /* align-items: center; */
+      }
+
+      @media only screen and (max-width: 790px) {
+        .profile-img {
+          display: flex;
+          justify-content: left;
+        }
+      }
+      .profile-head ul li p {
+        display: flex;
+        justify-content: left;
+      }
+      .nav-tabs {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="breadcrumb" class="p-3 mb-0 back">
+      <center>
+        <h1 class="text-light text-center">
+          MES COLLEGE OF ARTS COMMERCE AND SCIENCE
+        </h1>
+        <h5 class="text-light text-center">Malleswaram, Bangalore</h5>
+
+        <h3 class="text-light text-center">Staff Details</h3>
+      </center>
+    </nav>
+
+    {%for data in dataset%}
+    <div id="{{data.email}}">
+      <div class="container emp-profile">
+        <div class="row content">
+          <div class="col-md-6 row">
+            <div class="col-md-6">
+              <div class="profile-img">
+                <img src="{{data.photo.url}}" />
+                <!-- <a href="{{data.photo.url}}">{{data.photo}}</a> -->
+              </div>
+            </div>
+          </div>
+          <div class="info">
+            <div class="profile-head" style="margin-left: 7%">
+              <h5>{{data.name}}</h5>
+              <h6>{{data.designation}}</h6>
+              <p class="proile-rating">
+                Department : <span>{{data.dept}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="profile-head">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <p class="nav-link active">About</p>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-8" id="form">
+            <div class="tab-content profile-tab" id="myTabContent">
+              <div class="tab-pane fade show active">
+                <!-- <div class="row"></div> -->
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Name</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.name}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Email</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.email}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Phone</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.num}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Designation</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.designation}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Qualification</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.qualification}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Date of birth</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.dob}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Date of joining MESACS</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.doj}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>PAN number</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.pan}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>AAdhar number</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.aadhar}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Address</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{data.address}}</p>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Tenth Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.tenth_markscard.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>PU Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.pu_markscard.url}}" target="_blank">VIEW</a>
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Degree Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.degree_markscard.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Msc Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.master_markscard.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                {% if data.mphill_markscard %}
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Mphill Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.mphill_markscard.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                {% endif %} {% if data.phd_markscard %}
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Phd Marks Card</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.phd_markscard.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                {% endif %}
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Apppintment Letter</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.apppointment_letter.url}}" target="_blank"
+                      >VIEW</a
+                    >
+                  </div>
+                </div>
+                <div class="row detail">
+                  <div class="col-md-6">
+                    <label>Resume</label>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{{data.resume.url}}" target="_blank">VIEW</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <center>
+          <button
+            value="{{data.email}}"
+            class="pdf"
+            onClick="divFunction('{{data.email}}')"
+          >
+            Download
+          </button>
+        </center>
+      </div>
+    </div>
+    {%endfor%}
+  </body>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script
+    type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+  ></script>
+  <script type="text/javascript">
+    function divFunction(abc) {
+      var blah = String(abc);
+
+      var divContents = document.getElementById(blah).innerHTML;
+
+      var printWindow = window.open("", "", "height=400,width=800");
+      var head = $("head").html();
+      printWindow.document.write(head);
+      printWindow.document.write(
+        '<body><nav aria-label="breadcrumb" class="p-3 mb-0 back"><center><h1 class="text-light text-center">MES COLLEGE OF ARTS COMMERCE AND SCIENCE</h1><H5 class="text-light text-center">Malleswaram, Bangalore</H5><h3 class="text-light text-center"> Staff Details </h3></center></nav>'
+      );
+      printWindow.document.write(divContents);
+      printWindow.document.write("<p>Digi MES</p></body>");
+      printWindow.document.close();
+      printWindow.print();
+    }
+  </script>
+</html>

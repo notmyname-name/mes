@@ -1,0 +1,357 @@
+{% extends "./cell_dashboard.html" %}{% load extras%} {% block content %}
+<style>
+  
+  .title{
+    color:rgb(39, 39, 39);
+    font-weight: 600;
+  }
+  .table-wrapper{
+    margin-top: 2%;
+    
+    overflow: auto;
+  }
+  table{
+    border:2px solid rgb(0, 0, 0);
+  }
+  thead{
+    background-color: rgb(255, 255, 255);
+    color: rgb(63, 63, 63);
+    text-align: center;
+    
+  }
+  tbody{
+    background-color: rgb(63, 63, 63);
+    color: rgb(255, 255, 255);
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    
+  }
+  a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+  } 
+  img{
+    width:5rem;
+  }
+  .btn{
+    color: white;
+    font-weight: 600;
+    background-color: rgb(39, 39, 39);
+    margin: 1rem;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    
+  }
+  
+  .btn:hover{
+    background-color: #fcfcfc;
+    color: rgb(77, 77, 77);
+  }
+  
+  form{
+    display: flex;
+    justify-content: space-around;
+  }
+  .edit{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .Modal {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    padding: 100px 0px;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-transition: 0.5s;
+    overflow: auto;
+    transition: all 0.3s linear;
+  }
+  
+  .Modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 4px;
+    width: 80%;
+    height: fit-content;
+    color:#000;
+    
+  }
+  
+  .ModalOpen { overflow: hidden; }
+  
+  .is-hidden { display: none; }
+  
+  .is-visuallyHidden { opacity: 0; }
+  
+  /* The Close Button */
+  
+  .Close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 16px;
+  }
+  
+  .Close:hover, .Close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .is-blurred {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+  }
+</style>
+<center>
+  <h1 class="h1 text-uppercase text-center">
+    <img src="/static/logo.jpg" class="img-rounded" alt="Cinque Terre">
+    MES COLLEGE OF ARTS COMMERCE AND SCIENCE    </h1></center>
+    <center><h2 class='title'>{{title}}</h2></center>
+    
+    <div class="mt-6">
+        <center><form method="GET">
+          {{search.form.as_p}}<button type="submit" class="btn search">Search</button>
+        </form></center>
+      
+        
+        <div class="table-wrapper">
+        <table class="table">
+            
+          <thead>
+            <tr>
+              {% for col in field_name%}
+              <th scope="col">{{col}}</th>
+              {% endfor %}
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          
+          {% for data in pagination %}
+          
+          <tbody>
+            <tr>
+              
+              {%for info in data%}
+              {% if forloop.counter != 1 %}
+              {%if "/" in info%}
+              <td><a href="/media/{{info}}"><i class="fas fa-solid fa-file"></i></a></td>
+              {%else%}
+              <td>{{info}}</td>
+              {% endif %}
+             {%endif%}
+              {%endfor%}
+              <td class="text-center">
+                
+                <button id="edit{{data.0}}" onclick="editform('{{data.0}}')" url="{% url 'edit_cell' pk=data.0  %}" style="background-color: rgba(255, 255, 255, 0);border:none;color:white;"><i class="fas fa-highlighter mx-3"></i></button>
+                <button  onclick="del('{{data.0}}')" style="background-color: rgba(255, 255, 255, 0);border:none;color:white;"><i class="fas fa-trash mx-3"></i></button>
+                
+              </td>
+            </tr>
+            <div id="{{data.0}}" class="Modal is-hidden is-visuallyHidden">
+              <!-- Modal content -->
+              <div class="Modal-content">
+                  <span id="closeModal" class="Close">&times;</span>
+                  <center>
+                    <div class="item"><h3 class="mb-5">Are you sure, you want to delete ?</h3>
+                      <p>
+                      {%for info in data%}
+                      
+                      {% if forloop.counter != 1 %}
+
+                      {{info}}<span>,&emsp;</span>
+                      {% endif %}
+                     
+                      {%endfor%}
+                    </p>
+                      </div>
+                    
+                    
+                    <form method="POST" action="{% url 'delete_cell' pk=data.0 %}">{%csrf_token%}
+                      
+                      <button type="submit" class="btn btn-danger ">DELETE</button>
+                  </form></center>
+                  
+              </div>
+          </div>
+            {% endfor %}
+            <tr>
+              <form method="POST" id="Form"  enctype="multipart/form-data">
+                {% csrf_token %}
+              {% for field in form %}
+              
+              <td>{{ field.errors }}
+                {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}</td>
+              {%endfor%}
+              <td>
+              <input type="submit" value="Add" class="btn btn-primary btn-lg" name="form"/></td>
+            </tr>
+           
+        </form>
+          </tbody>
+          
+          
+          
+        </table>
+      </div>
+      <div id="editForm" class="Modal is-hidden is-visuallyHidden">
+        <!-- Modal content -->
+        <div class="Modal-content">
+            <span id="editModal" class="Close">&times;</span>
+            <center>
+              <div class="item" id="myEditForm">
+
+              </div></center>
+            
+        </div>
+    </div>
+
+       
+        <br />
+      
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if pagination.has_previous %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url 1 'page' request.GET.urlencode %}
+              "
+                >&laquo; First</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.previous_page_number 'page' request.GET.urlencode %}
+              "
+                >Previous</a
+              >
+            </li>
+      
+            {% endif %}
+      
+            <li class="page-item">
+              <a href="#" class="page-link disabled" style="cursor: default">
+                Pages {{ pagination.number }} of {{ pagination.paginator.num_pages }}
+              </a>
+            </li>
+      
+            {% if pagination.has_next %}
+      
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.next_page_number 'page' request.GET.urlencode %}
+              "
+                >Next</a
+              >
+            </li>
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{% relative_url pagination.paginator.num_pages 'page' request.GET.urlencode %}
+              "
+              >
+                Last &raquo;
+              </a>
+            </li>
+      
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    ></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      
+      <script type="text/javascript">
+        var modal = document.getElementById("myModal"),
+        container = document.getElementsByTagName("body"),
+        edit = document.getElementById("editForm"),
+        btnOpen = document.getElementById("myBtn"),
+        editOpen = document.getElementById("edit"),
+        btnClose = document.getElementById("closeModal"),
+        editClose = document.getElementById("editModal"),
+        did=0;
+        var del=function(id){
+          (document.getElementById(id).className = "Modal is-visuallyHidden"),
+          did=id,
+          setTimeout(function () {
+            (container.className = "MainContainer is-blurred"),
+              (document.getElementById(id).className = "Modal");
+              
+          }, 100);
+          
+        };
+        var editform=function(id){
+          (edit.className = "Modal is-visuallyHidden"),
+          
+          
+          setTimeout(function () {
+            (container.className = "MainContainer is-blurred"),
+              (edit.className = "Modal");
+              
+          }, 100);
+          
+          var url = $("#edit"+id).attr("url");  
+          
+  
+        $.ajax({                      
+          url: url,                    
+          
+          success: function (data) {  
+            $("#myEditForm").html(data);  
+          }
+        });
+
+
+        };
+      
+        (btnClose.onclick = function () {
+          
+          (document.getElementById(did).className = "Modal is-hidden is-visuallyHidden"),
+          
+          
+            (container.className = "MainContainer");
+            
+        }),
+        (editClose.onclick = function () {
+          (edit.className = "Modal is-hidden is-visuallyHidden"),
+          
+          
+            (container.className = "MainContainer");
+            
+        }),
+        (window.onclick = function (e) {
+          
+          e.target== edit &&
+            (
+            (edit.className = "Modal is-hidden"),
+          
+            (container.className = "MainContainer"));
+           e.target == document.getElementById(did) &&
+            ((document.getElementById(did).className = "Modal is-hidden"),
+            
+          
+            (container.className = "MainContainer"));
+
+            
+            
+        });
+      </script>
+    {% endblock %}
+    
